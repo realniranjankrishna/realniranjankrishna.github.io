@@ -1,5 +1,5 @@
 ---
-title:Studying Rudin - Chapter 1 
+title: Studying Rudin - Chapter 1 
 excerpt: "Solutions and Proof outlines for Baby Rudin"
 excerpt_separator: "<!--more-->"
 categories:
