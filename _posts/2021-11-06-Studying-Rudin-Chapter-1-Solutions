@@ -1,0 +1,14 @@
+---
+title:Studying Rudin - Chapter 1 
+excerpt: "Solutions and Proof outlines for Baby Rudin"
+excerpt_separator: "<!--more-->"
+categories:
+  - Math
+tags:
+  - math
+  - blog
+mathjax: true
+---
+
+## Exercise 1.1
+If $$r$$ is rational($$r\neq 0$$), and $$x$$ is irrational, prove that $$r+x$$ and $$rx$$ are irrational.
