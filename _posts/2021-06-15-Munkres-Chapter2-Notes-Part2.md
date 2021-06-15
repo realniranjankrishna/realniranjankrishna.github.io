@@ -56,6 +56,7 @@ For the second condition consider sets $$U_{1} \times V_{1}$$ and $$U_{2} \times
 $$(U_{1} \times V_{1}) \cap (U_{2} \times V_{2}) = (U_{1} \cap U_{2}) \times (V_{1} \cap V_{2})$$. 
 
 Since $$ (U_{1} \cap U_{2})$$ is open in $$X$$ and $$(V_{1} \cap V_{2})$$ is open in $$Y$$, by definition $$(U_{1} \cap U_{2}) \times (V_{1} \cap V_{2}) \in B$$
+
 **Theorem 15.1:** If $$B$$ is a basis for the topology of $$X$$ and $$C$$ is a basis for the topology of $$Y$$, then the collection
 $$D = \{B^{'} \times C^{'} |B^{'} \in B \text{ and } C^{'} \in C\}$$
 is a basis for the topology of $$X \times Y$$ 
