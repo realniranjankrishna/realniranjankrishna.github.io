@@ -4,29 +4,49 @@ permalink: /categories/
 title: "Posts by Categories"
 author_profile: true
 ---
-{% case site.category_archive.type %}
-  {% when "liquid" %}
-    {% assign path_type = "#" %}
-  {% when "jekyll-archives" %}
-    {% assign path_type = nil %}
-{% endcase %}
+{% if page.paginator %}
 
-{% if site.category_archive.path %}
-  {% comment %}
-    <!-- Sort alphabetically regardless of case e.g. a B c d E -->
-    <!-- modified from http://www.codeofclimber.ru/2015/sorting-site-tags-in-jekyll/ -->
-  {% endcomment %}
-  {% capture page_categories %}{% for category in page.categories %}{{ category | downcase }}#{{ category }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-  {% assign category_hashes = (page_categories | split: ',' | sort:0) %}
+  <!-- Pagination is active -->
+  {% assign paginator = page.paginator %}
 
-  <p class="page__taxonomy">
-    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].categories_label | default: "Categories:" }} </strong>
-    <span itemprop="keywords">
-    {% for hash in category_hashes %}
-      {% assign keyValue = hash | split: '#' %}
-      {% capture category_word %}{{ keyValue[1] | strip_newlines }}{% endcapture %}
-      <a href="{{ category_word | slugify | prepend: path_type | prepend: site.category_archive.path | absolute_url }}" class="page__taxonomy-item" rel="tag">{{ category_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+  {% if paginator.previous_page != nil or paginator.next_page != nil %}
+    <!-- Show page number if we have multiple pages -->
+    <h1>Category index page {{ paginator.page }} / {{ paginator.total_pages }} for &ldquo;{{ page.title }}&rdquo;</h1>
+  {% else %}
+    <!-- No page number if we only have a single page -->
+    <h1>Category index for &ldquo;{{ page.title }}&rdquo;</h1>
+  {% endif %}
+
+  <section>
+    <!-- Show post excerpts for the current page -->
+    {% for post in paginator.posts limit:paginator.per_page %}
+      <article>
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <h5>{{ post.date }}</h5>
+        <p>{{ post.excerpt }}</p>
+      </article>
     {% endfor %}
-    </span>
-  </p>
+  </section>
+  <!-- Show navigation next/previous page links if applicable -->
+  <nav><p>
+    {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path }}"><span aria-hidden="true">&larr;</span> Newer</a>{% endif %}
+    {% if paginator.next_page %}<a href="{{ paginator.next_page_path }}">Older <span aria-hidden="true">&rarr;</span></a>{% endif %}
+  </p></nav>
+
+{% else %}
+
+  <!-- Pagination is not active -->
+  <h1>Category index for &ldquo;{{ page.title }}&rdquo;</h1>
+
+  <section>
+    <!-- Show excerpts for all posts in this category -->
+    {% for post in page.posts %}
+      <article>
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <h5>{{ post.date }}</h5>
+        <p>{{ post.excerpt }}</p>
+      </article>
+    {% endfor %}
+  </section>
+
 {% endif %}
